@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: aws
+  object-storage:
+    aws:
+      default:
+        bucket: '${OBJECT_STORAGE_BUCKET}'
+otel:
+  traces:
+    exporter: otlp
+    propagator: 'tracecontext, baggage, xray'
+netty:
+  default:
+    allocator:
+      max-order: 3

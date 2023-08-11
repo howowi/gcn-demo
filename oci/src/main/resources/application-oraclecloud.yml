@@ -1,0 +1,21 @@
+micronaut:
+  application:
+    name: oci
+  object-storage:
+    oracle-cloud:
+      default:
+        bucket: 'profilePicture'
+        namespace: 'apaccpt01'
+oci:
+  config:
+    profile: DEFAULT
+otel:
+  traces:
+    exporter: zipkin
+  exporter:
+    zipkin:
+      endpoint: 'https://aaaadbrgby33caaaaaaaaaa74m.apm-agt.ap-mumbai-1.oci.oraclecloud.com/20200101/observations/public-span?dataFormat=zipkin&dataFormatVersion=2&dataKey=4F53DNQ3CK2N5HPQZOP2WWQBPBEJ324F'
+netty:
+  default:
+    allocator:
+      max-order: 3
