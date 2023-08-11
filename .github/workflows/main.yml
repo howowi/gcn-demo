@@ -27,13 +27,13 @@ jobs:
 
       - name: Build and run gcn app
         run: |
-          ./mvnw install -pl lib -am && ./mvnw package -pl oci -Dpackaging=native-image
+          ./mvnw install -pl lib -am && ./mvnw package -pl oci
       
       - name: Upload binary
-        uses: actions/checkout@v3
+        uses: actions/upload-artifact@v3
         with:
           name: oci-gcn
-          path: oci/target/oci
+          path: oci/target/oci-1.0-SNAPSHOT.jar
 
       # - name: Run an Oracle Cloud Infrastructure (OCI) CLI command
       #   uses: oracle-actions/run-oci-cli-command@v1.1.1
