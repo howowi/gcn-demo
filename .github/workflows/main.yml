@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and run gcn app
         run: |
-          ./mvnw install -pl lib -am && ./mvnw package -pl oci
+          ./mvnw install -pl lib -am && ./mvnw package -pl oci -e
       
       - name: Upload binary
         uses: actions/upload-artifact@v3
