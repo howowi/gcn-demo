@@ -7,45 +7,38 @@ on:
       
 jobs:   
   build:
-    env:
-      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
-      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
-      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
-      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
-      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+    # env:
+    #   OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+    #   OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+    #   OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+    #   OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+    #   OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: GitHub Action for GraalVM
+
+      - name: Setup GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: 
-          # GraalVM distribution. See the list of available distributions in the README file.
-          distribution: # optional, default is 
-          # Comma-separated list of GraalVM components to be installed.
-          components: # optional, default is 
-          # Set it to secrets.GITHUB_TOKEN to increase rate limits when accessing the GitHub API. Defaults to github.token.
-          github-token: # optional, default is ${{ github.token }}
-          # Set $JAVA_HOME to the GraalVM installation. Default: true.
-          set-java-home: # optional, default is true
-          # Name of the build platform to cache dependencies. It can be "maven", "gradle", or "sbt".
-          cache: # optional
-          # Annotate jobs with update notifications, for example, when a new GraalVM release is available
-          check-for-updates: # optional, default is true
-          # Set up musl for static image building with GraalVM Native Image.
-          native-image-musl: # optional, default is false
-          # Post a job summary containing a Native Image build report.
-          native-image-job-reports: # optional, default is false
-          # Post a comment containing a Native Image build report on pull requests.
-          native-image-pr-reports: # optional, default is false
-          # GraalVM version (release, latest, dev).
-          version: # optional, default is 
-          # Download token for the GraalVM Download Service. If provided, the action will set up GraalVM Enterprise Edition.
-          gds-token: # optional
-      - name: Run an Oracle Cloud Infrastructure (OCI) CLI command
-        uses: oracle-actions/run-oci-cli-command@v1.1.1
+          java-version: '17.0.8'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GB_TOKEN }}
+          native-image-job-reports: 'true'
+
+      - name: Build and run gcn app
+        run: |
+          ./mvnw install -pl lib -am && ./mvnw package -pl oci -Dpackaging=native-image
+      
+      - name: Upload binary
+        uses: actions/checkout@v3
         with:
-            # The command and arguments to provide to the "oci" tool. Most commands specify a service, followed by a resource type and then an action, e.g. "iam user list --compartment-id <compartment-ocid>"
-            command: 
-            # (Default: true) If set to 'False', will stream the output of the command directly to the log. This may leak confidential information. We recomment keep this as false except for debugging purposes.
-            silent: True
+          name: oci-gcn
+          path: oci/target/oci
+
+      # - name: Run an Oracle Cloud Infrastructure (OCI) CLI command
+      #   uses: oracle-actions/run-oci-cli-command@v1.1.1
+      #   with:
+      #       # The command and arguments to provide to the "oci" tool. Most commands specify a service, followed by a resource type and then an action, e.g. "iam user list --compartment-id <compartment-ocid>"
+      #       command: 
+      #       # (Default: true) If set to 'False', will stream the output of the command directly to the log. This may leak confidential information. We recomment keep this as false except for debugging purposes.
+      #       silent: True
