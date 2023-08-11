@@ -23,11 +23,10 @@ jobs:
           java-version: '17.0.8'
           distribution: 'graalvm'
           github-token: ${{ secrets.GB_TOKEN }}
-          native-image-job-reports: 'true'
 
       - name: Build and run gcn app
         run: |
-          ./mvnw install -pl lib -am && ./mvnw package -pl oci -e
+          ./mvnw install -pl -e lib -am && ./mvnw package -pl oci -e
       
       - name: Upload binary
         uses: actions/upload-artifact@v3
