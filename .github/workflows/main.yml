@@ -55,10 +55,10 @@ jobs:
           GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
           docker tag "gcn-demo-parent-oci:latest" "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
           docker push "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
-      
-          - name: Get git hash
-          run: |
-            echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+  
+      - name: Get git hash
+        run: |
+          echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
   
       - name: Deploy via OCI DevOps Deployment Pipeline
         uses: oracle-actions/run-oci-cli-command@v1.1.1
