@@ -1,6 +1,11 @@
 micronaut:
   application:
     name: aws
+  metrics:
+    enabled: true
+    export:
+      cloudwatch:
+        enabled: true
   object-storage:
     aws:
       default:
@@ -9,6 +14,8 @@ otel:
   traces:
     exporter: otlp
     propagator: 'tracecontext, baggage, xray'
+  exclusions:
+  - /health
 netty:
   default:
     allocator:

@@ -93,18 +93,23 @@ limitations under the License.
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-management</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut.aws</groupId>
       <artifactId>micronaut-aws-sdk-v2</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.kubernetes</groupId>
-      <artifactId>micronaut-kubernetes-client</artifactId>
+      <groupId>io.micronaut.micrometer</groupId>
+      <artifactId>micronaut-micrometer-core</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.kubernetes</groupId>
-      <artifactId>micronaut-kubernetes-discovery-client</artifactId>
+      <groupId>io.micronaut.micrometer</groupId>
+      <artifactId>micronaut-micrometer-registry-cloudwatch</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>

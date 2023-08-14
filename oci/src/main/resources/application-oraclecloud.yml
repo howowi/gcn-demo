@@ -6,7 +6,7 @@ micronaut:
     export:
       oraclecloud:
         enabled: false
-        # namespace: change-me
+        namespace: gcn_metrics_oci
   object-storage:
     oracle-cloud:
       default:
