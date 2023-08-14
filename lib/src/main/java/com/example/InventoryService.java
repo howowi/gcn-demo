@@ -40,7 +40,7 @@ public class InventoryService {
         this.tracer = tracer;
         this.warehouse = warehouse;
 
-        inventory.put("laptop", 4);
+        inventory.put("laptop", 10);
         inventory.put("desktop", 2);
         inventory.put("monitor", 11);
     }
