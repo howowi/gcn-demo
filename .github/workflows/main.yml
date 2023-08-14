@@ -32,29 +32,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # - name: Build and run gcn app
-      #   run: |
-      #     ./mvnw install -pl lib -am -e && ./mvnw package -pl oci -Dpackaging=docker -e
+      - name: Build and run gcn app
+        run: |
+          ./mvnw install -pl lib -am -e && ./mvnw package -pl oci -Dpackaging=docker -e
 
-      # - name: Get or create an OCIR Repository
-      #   uses: oracle-actions/get-ocir-repository@v1.2.1
-      #   id: get-ocir-repository
-      #   with:
-      #     name: gcn-demo-oci
-      #     compartment: ${{ secrets.OCI_COMPARTMENT_OCID }}
+      - name: Get or create an OCIR Repository
+        uses: oracle-actions/get-ocir-repository@v1.2.1
+        id: get-ocir-repository
+        with:
+          name: gcn-demo-oci
+          compartment: ${{ secrets.OCI_COMPARTMENT_OCID }}
   
-      # - name: Log into OCIR
-      #   uses: oracle-actions/login-ocir@v1.2.1
-      #   id: login-ocir
-      #   with:
-      #     auth_token: ${{ secrets.OCI_AUTH_TOKEN }}
+      - name: Log into OCIR
+        uses: oracle-actions/login-ocir@v1.2.1
+        id: login-ocir
+        with:
+          auth_token: ${{ secrets.OCI_AUTH_TOKEN }}
   
-      # - name: Tag and push a container image
-      #   id: tag-and-push-image
-      #   run: |
-      #     GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
-      #     docker tag "gcn-demo-parent-oci:latest" "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
-      #     docker push "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
+      - name: Tag and push a container image
+        id: tag-and-push-image
+        run: |
+          GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
+          docker tag "gcn-demo-parent-oci:latest" "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
+          docker push "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
   
       - name: Get git hash
         run: |
@@ -63,6 +63,5 @@ jobs:
       - name: Deploy via OCI DevOps Deployment Pipeline
         uses: oracle-actions/run-oci-cli-command@v1.1.1
         with:
-            # The command and arguments to provide to the "oci" tool. Most commands specify a service, followed by a resource type and then an action, e.g. "iam user list --compartment-id <compartment-ocid>"
-            command: devops deployment create-pipeline-deployment -d --pipeline-id ${{ secrets.OCI_DEVOPS_PIPELINE_ID }} --display-name deployment-version-${{ env.sha_short }} --deployment-arguments "{\"items\":[{\"name\":\"IMG_TAG\",\"value\":\"${{env.sha_short}}\"}]}"
-            silent: false
+            command: devops deployment create-pipeline-deployment --pipeline-id ${{ secrets.OCI_DEVOPS_PIPELINE_ID }} --display-name deployment-version-${{ env.sha_short }} --deployment-arguments "{\"items\":[{\"name\":\"IMG_TAG\",\"value\":\"${{env.sha_short}}\"}]}"
+            silent: true
