@@ -34,13 +34,13 @@ jobs:
 
       - name: Build and run gcn app
         run: |
-          ./mvnw install -pl lib -am -e && ./mvnw package -pl oci -Dpackaging=docker-native -e
+          ./mvnw install -pl lib -am -e && ./mvnw package -pl oci -Dpackaging=docker -e
 
       - name: Get or create an OCIR Repository
         uses: oracle-actions/get-ocir-repository@v1.2.1
         id: get-ocir-repository
         with:
-          name: gcn-demo-native-oci
+          name: gcn-demo-oci
           compartment: ${{ secrets.OCI_COMPARTMENT_OCID }}
   
       - name: Log into OCIR
