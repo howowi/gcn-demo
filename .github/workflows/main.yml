@@ -64,4 +64,4 @@ jobs:
         uses: oracle-actions/run-oci-cli-command@v1.1.1
         with:
             # The command and arguments to provide to the "oci" tool. Most commands specify a service, followed by a resource type and then an action, e.g. "iam user list --compartment-id <compartment-ocid>"
-            command: devops deployment create-pipeline-deployment --pipeline-id ${{ secrets.OCI_DEVOPS_PIPELINE_ID }} --display-name deployment-version-${{ env.sha_short }} --deployment-arguments '{\"items\":[{\"name\":\"IMG_TAG\", \"value\":\"'${{ env.sha_short }}'\"}]}'
+            command: devops deployment create-pipeline-deployment -d --pipeline-id ${{ secrets.OCI_DEVOPS_PIPELINE_ID }} --display-name deployment-version-${{ env.sha_short }} --deployment-arguments '{\"items\":[{\"name\":\"IMG_TAG\", \"value\":\"'${{ env.sha_short }}'\"}]}'
