@@ -1,0 +1,10 @@
+micronaut:
+  metrics:
+    export:
+      oraclecloud:
+        enabled: false
+    enabled: true
+custom:
+  thread:
+    count:
+      initialDelay: 10h

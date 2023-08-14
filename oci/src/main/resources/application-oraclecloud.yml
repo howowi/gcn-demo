@@ -1,6 +1,12 @@
 micronaut:
   application:
     name: oci
+  metrics:
+    enabled: true
+    # export:
+    #   oraclecloud:
+    #     enabled: true
+    #     namespace: change-me
   object-storage:
     oracle-cloud:
       default:
@@ -10,6 +16,8 @@ oci:
   config:
     profile: DEFAULT
 otel:
+  exclusions:
+  - /health
   traces:
     exporter: zipkin
   exporter:

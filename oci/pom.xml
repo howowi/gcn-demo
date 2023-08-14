@@ -71,8 +71,25 @@ limitations under the License.
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>ch.qos.logback.contrib</groupId>
+      <artifactId>logback-jackson</artifactId>
+      <version>0.1.5</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback.contrib</groupId>
+      <artifactId>logback-json-classic</artifactId>
+      <version>0.1.5</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>com.oracle.oci.sdk</groupId>
       <artifactId>oci-java-sdk-addons-graalvm</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.oci.sdk</groupId>
+      <artifactId>oci-java-sdk-monitoring</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -91,13 +108,13 @@ limitations under the License.
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.kubernetes</groupId>
-      <artifactId>micronaut-kubernetes-client</artifactId>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-management</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.kubernetes</groupId>
-      <artifactId>micronaut-kubernetes-discovery-client</artifactId>
+      <groupId>io.micronaut.micrometer</groupId>
+      <artifactId>micronaut-micrometer-core</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -108,6 +125,16 @@ limitations under the License.
     <dependency>
       <groupId>io.micronaut.oraclecloud</groupId>
       <artifactId>micronaut-oraclecloud-httpclient-netty</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.oraclecloud</groupId>
+      <artifactId>micronaut-oraclecloud-logging</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.oraclecloud</groupId>
+      <artifactId>micronaut-oraclecloud-micrometer</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
