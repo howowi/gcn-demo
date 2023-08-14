@@ -56,10 +56,21 @@ jobs:
           docker tag "gcn-demo-parent-oci:latest" "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
           docker push "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
 
-      # - name: Run an Oracle Cloud Infrastructure (OCI) CLI command
-      #   uses: oracle-actions/run-oci-cli-command@v1.1.1
-      #   with:
-      #       # The command and arguments to provide to the "oci" tool. Most commands specify a service, followed by a resource type and then an action, e.g. "iam user list --compartment-id <compartment-ocid>"
-      #       command: 
-      #       # (Default: true) If set to 'False', will stream the output of the command directly to the log. This may leak confidential information. We recomment keep this as false except for debugging purposes.
-      #       silent: True
+  deploy:
+    env:
+      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get git hash
+        run: |
+          echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+
+      - name: Deploy via OCI DevOps Deployment Pipeline
+        uses: oracle-actions/run-oci-cli-command@v1.1.1
+        with:
+            # The command and arguments to provide to the "oci" tool. Most commands specify a service, followed by a resource type and then an action, e.g. "iam user list --compartment-id <compartment-ocid>"
+            command: devops deployment create-pipeline-deployment --pipeline-id ${{ secrets.OCI_DEVOPS_PIPELINE_ID }} --display-name deployment-version-${{ env.sha_short }} --deployment-arguments '{\"items\":[{\"name\":\"IMG_TAG\", \"value\":\"'${{ env.sha_short }}'\"}]}'
