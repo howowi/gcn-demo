@@ -41,7 +41,7 @@ public class InventoryService {
         this.warehouse = warehouse;
 
         inventory.put("laptop", 10);
-        inventory.put("desktop", 2);
+        inventory.put("desktop", 12);
         inventory.put("monitor", 11);
     }
 
