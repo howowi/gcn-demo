@@ -6,7 +6,7 @@ on:
       - main
       
 jobs:   
-  build:
+  Build_Deploy_GCN_App:
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
       OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
@@ -55,20 +55,11 @@ jobs:
           GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
           docker tag "gcn-demo-parent-oci:latest" "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
           docker push "${{ steps.get-ocir-repository.outputs.repo_path }}:$GIT_HASH"
-
-  deploy:
-    env:
-      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
-      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
-      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
-      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
-      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get git hash
-        run: |
-          echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
-
+      
+          - name: Get git hash
+          run: |
+            echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+  
       - name: Deploy via OCI DevOps Deployment Pipeline
         uses: oracle-actions/run-oci-cli-command@v1.1.1
         with:
