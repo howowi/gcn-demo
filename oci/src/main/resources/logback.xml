@@ -1,30 +1,15 @@
-<configuration debug='false'>
+<configuration>
 
-    <!--
-    You can un-comment the STDOUT appender and <appender-ref ref='STDOUT'/> in
-    the cloud appender to log to STDOUT as the 'emergency' appender.
-    -->
-
-    <!--
-    <appender name='STDOUT' class='ch.qos.logback.core.ConsoleAppender'>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>false</withJansi>
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
-        </encoder>
-    </appender>
-    -->
-
-    <appender name='ORACLE' class='io.micronaut.oraclecloud.logging.OracleCloudAppender'>
-        <!-- <appender-ref ref='STDOUT'/> -->
-        <logId><!-- TODO set the value of the Oracle Cloud log OCID here --></logId>
-        <encoder class='ch.qos.logback.core.encoder.LayoutWrappingEncoder'>
-            <layout class='ch.qos.logback.contrib.json.classic.JsonLayout'>
-                <jsonFormatter class='ch.qos.logback.contrib.jackson.JacksonJsonFormatter'/>
-            </layout>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <root level='INFO'>
-        <appender-ref ref='ORACLE'/>
+    <root level="info">
+        <appender-ref ref="STDOUT" />
     </root>
-
 </configuration>
