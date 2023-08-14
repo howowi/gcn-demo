@@ -26,7 +26,7 @@ jobs:
 
       - name: Build and run gcn app
         run: |
-          ./mvnw install -pl lib -am && ./mvnw package -pl oci -Dpackaging=docker
+          ./mvnw install -pl lib -am -e && ./mvnw package -pl oci -Dpackaging=docker -e
 
       - name: Get or create an OCIR Repository
         uses: oracle-actions/get-ocir-repository@v1.2.1
