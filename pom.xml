@@ -22,10 +22,10 @@ limitations under the License.
         <artifactId>micronaut-parent</artifactId>
         <version>3.8.5</version>
     </parent>
-    <artifactId>GCN-demo-parent</artifactId>
+    <artifactId>gcn-demo-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <groupId>com.example</groupId>
-    <name>GCN-demo</name>
+    <name>gcn-demo</name>
     <packaging>pom</packaging>
 
     <modules>
